@@ -1,0 +1,79 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxufvrerho1lq"]
+
+[ext_resource type="Texture2D" uid="uid://d0wju3yxx7wiq" path="res://Game/board.png" id="1_s2xxv"]
+[ext_resource type="Texture2D" uid="uid://ckgeeqm5b2735" path="res://Tiles/O_sprite.png" id="2_p158s"]
+[ext_resource type="Texture2D" uid="uid://dfitcx18g402m" path="res://Tiles/X_sprite.png" id="3_h6lju"]
+[ext_resource type="Script" path="res://Game/GameManager.gd" id="4_k2xtc"]
+[ext_resource type="PackedScene" uid="uid://ifd3m3wwj73f" path="res://Menus/GameOver.tscn" id="5_o5hsm"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xkq3s"]
+texture = ExtResource("2_p158s")
+texture_region_size = Vector2i(140, 140)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xup0p"]
+texture = ExtResource("3_h6lju")
+texture_region_size = Vector2i(110, 115)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_brflo"]
+tile_size = Vector2i(160, 160)
+sources/1 = SubResource("TileSetAtlasSource_xup0p")
+sources/0 = SubResource("TileSetAtlasSource_xkq3s")
+
+[node name="Game" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -300.0
+offset_right = 600.0
+offset_bottom = 900.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(240, 240)
+
+[node name="Label" type="Label" parent="Camera2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -412.0
+offset_right = 300.0
+offset_bottom = -324.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "PLAYER X TURN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_s2xxv")
+centered = false
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_brflo")
+format = 2
+script = ExtResource("4_k2xtc")
+
+[node name="GameOver" parent="." instance=ExtResource("5_o5hsm")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -292.0
+offset_right = -60.0
+offset_bottom = -292.0
+grow_horizontal = 2
+grow_vertical = 2

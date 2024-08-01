@@ -1,0 +1,134 @@
+[gd_scene load_steps=13 format=3 uid="uid://bgmjvnhahh2ck"]
+
+[ext_resource type="Script" path="res://Transitions/Transition.gd" id="1_cg2tv"]
+[ext_resource type="AudioStream" uid="uid://bfxeno2byf7m0" path="res://Game/OST_AtDoom'sGate.mp3" id="2_7fxck"]
+[ext_resource type="Texture2D" uid="uid://bqsxlgtwo5hgp" path="res://Particles/Explosion2_spritesheet.png" id="3_uy4dt"]
+[ext_resource type="Texture2D" uid="uid://ceymfa734ouv1" path="res://Particles/Explosion1_spritesheet.png" id="4_bmi06"]
+
+[sub_resource type="Animation" id="Animation_asjvx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7plj4"]
+resource_name = "dissolve"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_utljr"]
+resource_name = "dissolve_slow"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8lkti"]
+_data = {
+"RESET": SubResource("Animation_asjvx"),
+"dissolve": SubResource("Animation_7plj4"),
+"dissolve_slow": SubResource("Animation_utljr")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jyjdc"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 6
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xb5uo"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(300, 500, 1)
+gravity = Vector3(0, 0, 0)
+scale_min = 5.0
+scale_max = 7.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_prtlp"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 6
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q4aml"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(300, 500, 1)
+gravity = Vector3(0, 0, 0)
+scale_min = 5.0
+scale_max = 7.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="Transition" type="CanvasLayer"]
+script = ExtResource("1_cg2tv")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -1369.0
+offset_top = -886.0
+offset_right = 1833.0
+offset_bottom = 1830.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8lkti")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_7fxck")
+volume_db = -10.0
+autoplay = true
+
+[node name="Explosions" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_jyjdc")
+position = Vector2(303, 511)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_xb5uo")
+texture = ExtResource("3_uy4dt")
+one_shot = true
+explosiveness = 0.2
+fixed_fps = 60
+
+[node name="Explosions2" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_prtlp")
+position = Vector2(303, 511)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_q4aml")
+texture = ExtResource("4_bmi06")
+one_shot = true
+explosiveness = 0.2
+fixed_fps = 60

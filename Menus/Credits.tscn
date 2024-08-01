@@ -1,0 +1,130 @@
+[gd_scene load_steps=10 format=3 uid="uid://coqed56qb4a0s"]
+
+[ext_resource type="Script" path="res://Menus/Credits.gd" id="1_ivbn8"]
+[ext_resource type="FontFile" uid="uid://bf7d23fk2q6gh" path="res://SuperPlayfulFont.ttf" id="2_nbkpo"]
+[ext_resource type="Texture2D" uid="uid://bcblpc6qc6xbj" path="res://Menus/Idle@2x.png" id="3_dh7dj"]
+[ext_resource type="Texture2D" uid="uid://cfqnomwvhydir" path="res://Menus/Click@2x.png" id="4_de2yd"]
+
+[sub_resource type="Gradient" id="Gradient_vt534"]
+colors = PackedColorArray(0.972549, 0.709804, 0, 1, 0.988235, 0.917647, 0.733333, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ro54j"]
+gradient = SubResource("Gradient_vt534")
+fill_from = Vector2(1, 0.380734)
+fill_to = Vector2(1, 0.724771)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5rqkp"]
+content_margin_left = 11.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 24.0
+texture = ExtResource("3_dh7dj")
+texture_margin_left = 11.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fe02i"]
+content_margin_left = 11.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 24.0
+texture = ExtResource("3_dh7dj")
+texture_margin_left = 11.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8bwmg"]
+content_margin_left = 11.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+texture = ExtResource("4_de2yd")
+texture_margin_left = 11.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 24.0
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -388.0
+offset_top = -362.0
+offset_right = -348.0
+offset_bottom = -322.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ivbn8")
+
+[node name="ColorRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1014.0
+offset_top = -1240.0
+offset_right = 1770.0
+offset_bottom = 1706.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ro54j")
+
+[node name="RichTextLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(345, 0)
+layout_mode = 0
+offset_left = 91.0
+offset_top = 77.0
+offset_right = 688.0
+offset_bottom = 597.0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0.262745, 0.972549, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("2_nbkpo")
+theme_override_font_sizes/font_size = 60
+text = "Made by 
+Eros Ruzzante"
+horizontal_alignment = 1
+
+[node name="Credits" type="Button" parent="."]
+custom_minimum_size = Vector2(250, 85)
+layout_mode = 0
+offset_left = 265.0
+offset_top = 404.0
+offset_right = 515.0
+offset_bottom = 504.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_nbkpo")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_5rqkp")
+theme_override_styles/hover = SubResource("StyleBoxTexture_fe02i")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8bwmg")
+text = "Linktree"
+
+[node name="Menu" type="Button" parent="."]
+custom_minimum_size = Vector2(250, 85)
+layout_mode = 0
+offset_left = 265.0
+offset_top = 514.0
+offset_right = 515.0
+offset_bottom = 614.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_nbkpo")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_5rqkp")
+theme_override_styles/hover = SubResource("StyleBoxTexture_fe02i")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8bwmg")
+text = "menu"
+
+[connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Menu" to="." method="_on_menu_pressed"]

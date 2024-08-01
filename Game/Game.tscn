@@ -1,0 +1,533 @@
+[gd_scene load_steps=31 format=3 uid="uid://bxufvrerho1lq"]
+
+[ext_resource type="FontFile" uid="uid://bf7d23fk2q6gh" path="res://SuperPlayfulFont.ttf" id="1_mortb"]
+[ext_resource type="Texture2D" uid="uid://bsm7jmfnmmviy" path="res://Game/Board.png" id="1_ru5tb"]
+[ext_resource type="Texture2D" uid="uid://b5w1fuhjgxt4s" path="res://Tiles/O_sprite.png" id="2_liax0"]
+[ext_resource type="Texture2D" uid="uid://dfitcx18g402m" path="res://Tiles/X_sprite.png" id="3_h6lju"]
+[ext_resource type="Script" path="res://Game/GameManager.gd" id="4_k2xtc"]
+[ext_resource type="AudioStream" uid="uid://cu2fwtdihh6ux" path="res://Game/PlacedSlap.wav" id="5_wgswp"]
+[ext_resource type="Texture2D" uid="uid://16oqtev3qx75" path="res://Particles/SmokePuff1_sprite.png" id="6_jgs50"]
+[ext_resource type="Texture2D" uid="uid://5252pwno8fkj" path="res://Tiles/O_sprite_transparent.png" id="7_bhjl3"]
+[ext_resource type="Texture2D" uid="uid://bxvs44ju5rqmo" path="res://Particles/SmokePuff2_sprite.png" id="7_pdi5i"]
+[ext_resource type="Texture2D" uid="uid://bp4rti6wedooe" path="res://Tiles/X_sprite_transparent.png" id="7_vmoqu"]
+
+[sub_resource type="Gradient" id="Gradient_i5ds3"]
+colors = PackedColorArray(0.988235, 0.917647, 0.733333, 1, 0.972549, 0.709804, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_spaqq"]
+gradient = SubResource("Gradient_i5ds3")
+fill_from = Vector2(1, 0.775229)
+fill_to = Vector2(1, 0.288991)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kw7o8"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+angle_min = -360.0
+spread = 180.0
+initial_velocity_min = 100.0
+initial_velocity_max = 120.0
+angular_velocity_min = -250.0
+angular_velocity_max = 250.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.2
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xkq3s"]
+texture = ExtResource("2_liax0")
+texture_region_size = Vector2i(140, 140)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xup0p"]
+texture = ExtResource("3_h6lju")
+texture_region_size = Vector2i(140, 140)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1v0ue"]
+texture = ExtResource("7_bhjl3")
+texture_region_size = Vector2i(140, 140)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_31y8h"]
+texture = ExtResource("7_vmoqu")
+texture_region_size = Vector2i(140, 140)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_brflo"]
+tile_size = Vector2i(160, 160)
+sources/1 = SubResource("TileSetAtlasSource_xup0p")
+sources/0 = SubResource("TileSetAtlasSource_xkq3s")
+sources/2 = SubResource("TileSetAtlasSource_1v0ue")
+sources/3 = SubResource("TileSetAtlasSource_31y8h")
+
+[sub_resource type="Animation" id="Animation_iyyou"]
+resource_name = "AnimationO"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedO:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedO:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_k6n72"]
+resource_name = "AnimationX"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedX:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedX:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gkkxc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WinHor1:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(30, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WinHor2:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(30, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WinHor3:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(30, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WinVer1:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(30, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("WinVer2:size")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(30, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("WinVer3:size")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(30, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("WinDiag1:size")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(30, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("WinDiag2:size")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(30, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("AnimatedO:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AnimatedO:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("AnimatedX:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("AnimatedX:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ve8rm"]
+resource_name = "WinDiag1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WinDiag1:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(30, 0), Vector2(30, 575)]
+}
+
+[sub_resource type="Animation" id="Animation_tysad"]
+resource_name = "WinDiag2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WinDiag2:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(30, 0), Vector2(30, 575)]
+}
+
+[sub_resource type="Animation" id="Animation_pd5me"]
+resource_name = "WinHor1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WinHor1:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(30, 0), Vector2(30, 475)]
+}
+
+[sub_resource type="Animation" id="Animation_uf7y6"]
+resource_name = "WinHor2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WinHor2:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(30, 0), Vector2(30, 475)]
+}
+
+[sub_resource type="Animation" id="Animation_0wcuh"]
+resource_name = "WinHor3"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WinHor3:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(30, 0), Vector2(30, 475)]
+}
+
+[sub_resource type="Animation" id="Animation_3qxji"]
+resource_name = "WinVer1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WinVer1:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(30, 0), Vector2(30, 475)]
+}
+
+[sub_resource type="Animation" id="Animation_biksg"]
+resource_name = "WinVer2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WinVer2:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(30, 0), Vector2(30, 475)]
+}
+
+[sub_resource type="Animation" id="Animation_fwsff"]
+resource_name = "WinVer3"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WinVer3:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(30, 0), Vector2(30, 475)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ulg6n"]
+_data = {
+"AnimationO": SubResource("Animation_iyyou"),
+"AnimationX": SubResource("Animation_k6n72"),
+"RESET": SubResource("Animation_gkkxc"),
+"WinDiag1": SubResource("Animation_ve8rm"),
+"WinDiag2": SubResource("Animation_tysad"),
+"WinHor1": SubResource("Animation_pd5me"),
+"WinHor2": SubResource("Animation_uf7y6"),
+"WinHor3": SubResource("Animation_0wcuh"),
+"WinVer1": SubResource("Animation_3qxji"),
+"WinVer2": SubResource("Animation_biksg"),
+"WinVer3": SubResource("Animation_fwsff")
+}
+
+[node name="Game" type="Node2D"]
+
+[node name="ColorRect" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -799.0
+offset_top = -942.0
+offset_right = 2087.0
+offset_bottom = 1290.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_spaqq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(240, 240)
+
+[node name="Label" type="Label" parent="Camera2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -412.0
+offset_right = 300.0
+offset_bottom = -324.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.972549, 0, 0.74902, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("1_mortb")
+theme_override_font_sizes/font_size = 64
+text = "PLAYER 1: X"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ru5tb")
+centered = false
+
+[node name="XParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_kw7o8")
+texture = ExtResource("6_jgs50")
+lifetime = 0.4
+one_shot = true
+
+[node name="OParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_kw7o8")
+texture = ExtResource("7_pdi5i")
+lifetime = 0.4
+one_shot = true
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_brflo")
+format = 2
+script = ExtResource("4_k2xtc")
+
+[node name="AnimatedX" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_h6lju")
+
+[node name="AnimatedO" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_liax0")
+
+[node name="WinVer1" type="ColorRect" parent="."]
+offset_left = 65.0
+offset_right = 95.0
+color = Color(1, 0, 0, 1)
+
+[node name="WinVer2" type="ColorRect" parent="."]
+offset_left = 225.0
+offset_right = 255.0
+color = Color(1, 0, 0, 1)
+
+[node name="WinVer3" type="ColorRect" parent="."]
+offset_left = 390.0
+offset_right = 420.0
+color = Color(1, 0, 0, 1)
+
+[node name="WinHor1" type="ColorRect" parent="."]
+offset_top = 95.0
+offset_right = 30.0
+offset_bottom = 95.0
+rotation = -1.5708
+color = Color(1, 0, 0, 1)
+
+[node name="WinHor2" type="ColorRect" parent="."]
+offset_top = 255.0
+offset_right = 30.0
+offset_bottom = 255.0
+rotation = -1.5708
+color = Color(1, 0, 0, 1)
+
+[node name="WinHor3" type="ColorRect" parent="."]
+offset_top = 415.0
+offset_right = 30.0
+offset_bottom = 415.0
+rotation = -1.5708
+color = Color(1, 0, 0, 1)
+
+[node name="WinDiag1" type="ColorRect" parent="."]
+offset_left = 25.0
+offset_top = 45.0
+offset_right = 55.0
+offset_bottom = 45.0
+rotation = -0.785398
+color = Color(1, 0, 0, 1)
+
+[node name="WinDiag2" type="ColorRect" parent="."]
+offset_left = 430.0
+offset_top = 30.0
+offset_right = 460.0
+offset_bottom = 30.0
+rotation = 0.785398
+color = Color(1, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ulg6n")
+}
+
+[node name="PlacedSlap" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_wgswp")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="TileMap" method="_on_animation_player_animation_finished"]

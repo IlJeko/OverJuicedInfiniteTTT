@@ -1,0 +1,283 @@
+[gd_scene load_steps=25 format=3 uid="uid://ifd3m3wwj73f"]
+
+[ext_resource type="Script" path="res://Menus/GameOver.gd" id="1_7kc0l"]
+[ext_resource type="FontFile" uid="uid://bf7d23fk2q6gh" path="res://SuperPlayfulFont.ttf" id="2_34s43"]
+[ext_resource type="Texture2D" uid="uid://d4e42id6l1088" path="res://Particles/SmokePuff3_sprite.png" id="2_063v5"]
+[ext_resource type="AudioStream" uid="uid://b5ti06upyrm7w" path="res://Menus/ButtonClick.wav" id="2_hxhd5"]
+[ext_resource type="Texture2D" uid="uid://bcblpc6qc6xbj" path="res://Menus/Idle@2x.png" id="3_0lw47"]
+[ext_resource type="AudioStream" uid="uid://dxchhf1ww565n" path="res://Menus/WinHorn.wav" id="3_bevka"]
+[ext_resource type="Texture2D" uid="uid://cfqnomwvhydir" path="res://Menus/Click@2x.png" id="4_ny38u"]
+[ext_resource type="AudioStream" uid="uid://7hp1yn3e4r21" path="res://Menus/Disappoint.wav" id="4_p00mk"]
+[ext_resource type="Texture2D" uid="uid://ceymfa734ouv1" path="res://Particles/Explosion1_spritesheet.png" id="9_qanif"]
+[ext_resource type="Texture2D" uid="uid://bqsxlgtwo5hgp" path="res://Particles/Explosion2_spritesheet.png" id="10_x21pk"]
+
+[sub_resource type="Theme" id="Theme_jtkui"]
+default_font_size = 50
+
+[sub_resource type="Gradient" id="Gradient_nw8lp"]
+colors = PackedColorArray(0.988235, 0.917647, 0.733333, 1, 0.972549, 0.709804, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lf873"]
+gradient = SubResource("Gradient_nw8lp")
+fill_from = Vector2(1, 0.633027)
+fill_to = Vector2(0.972477, 0.243119)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kp168"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+angle_min = -360.0
+angle_max = 360.0
+spread = 180.0
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+angular_velocity_min = -200.0
+angular_velocity_max = 200.0
+radial_velocity_min = 100.0
+radial_velocity_max = 110.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wvai1"]
+content_margin_left = 11.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 24.0
+texture = ExtResource("3_0lw47")
+texture_margin_left = 11.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oxwol"]
+content_margin_left = 11.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 24.0
+texture = ExtResource("3_0lw47")
+texture_margin_left = 11.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qksdv"]
+content_margin_left = 11.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+texture = ExtResource("4_ny38u")
+texture_margin_left = 11.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xpavh"]
+content_margin_left = 11.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 24.0
+texture = ExtResource("3_0lw47")
+texture_margin_left = 11.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wdwce"]
+content_margin_left = 11.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 24.0
+texture = ExtResource("3_0lw47")
+texture_margin_left = 11.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vsrq8"]
+content_margin_left = 11.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+texture = ExtResource("4_ny38u")
+texture_margin_left = 11.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_n6hl3"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 6
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6lill"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(300, 500, 1)
+gravity = Vector3(0, 0, 0)
+scale_min = 5.0
+scale_max = 7.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_c3ttg"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 6
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mcshk"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(300, 500, 1)
+gravity = Vector3(0, 0, 0)
+scale_min = 5.0
+scale_max = 7.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -533.0
+offset_right = -300.0
+offset_bottom = -533.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_jtkui")
+script = ExtResource("1_7kc0l")
+
+[node name="ColorRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1355.0
+offset_top = -776.0
+offset_right = 1906.0
+offset_bottom = 2058.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_lf873")
+
+[node name="ExitSmoke2" type="GPUParticles2D" parent="."]
+position = Vector2(426, 666)
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_kp168")
+texture = ExtResource("2_063v5")
+lifetime = 0.2
+one_shot = true
+
+[node name="PlaySmoke2" type="GPUParticles2D" parent="."]
+position = Vector2(426, 556)
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_kp168")
+texture = ExtResource("2_063v5")
+lifetime = 0.2
+one_shot = true
+
+[node name="PlaySmoke1" type="GPUParticles2D" parent="."]
+position = Vector2(172, 556)
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_kp168")
+texture = ExtResource("2_063v5")
+lifetime = 0.2
+one_shot = true
+
+[node name="ExitSmoke1" type="GPUParticles2D" parent="."]
+position = Vector2(175, 668)
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_kp168")
+texture = ExtResource("2_063v5")
+lifetime = 0.2
+one_shot = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 1066.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(345, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0.262745, 0.972549, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("2_34s43")
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 85)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_34s43")
+theme_override_styles/normal = SubResource("StyleBoxTexture_wvai1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oxwol")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_qksdv")
+text = "Play again
+"
+
+[node name="Exit" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(292, 85)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+theme_override_fonts/font = ExtResource("2_34s43")
+theme_override_styles/normal = SubResource("StyleBoxTexture_xpavh")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wdwce")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vsrq8")
+text = "Exit
+"
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_hxhd5")
+
+[node name="WinHorn" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_bevka")
+
+[node name="Disappoint" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_p00mk")
+
+[node name="Explosions" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_n6hl3")
+position = Vector2(303, 511)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_6lill")
+texture = ExtResource("10_x21pk")
+one_shot = true
+explosiveness = 0.2
+fixed_fps = 60
+
+[node name="Explosions2" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_c3ttg")
+position = Vector2(303, 511)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_mcshk")
+texture = ExtResource("9_qanif")
+one_shot = true
+explosiveness = 0.2
+fixed_fps = 60
+
+[connection signal="button_down" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_button_down"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="button_down" from="MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_button_down"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
